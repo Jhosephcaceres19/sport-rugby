@@ -1,10 +1,12 @@
 # React + Vite Project Sport Rugby Frontend
 
+
+
 Hola chicos para habrir el proyecto primero deben de clonarlo
 
 - git clone https://github.com/Jhosephcaceres19/sport-rugby-front.git
 - cd sport-rugby-front
-- pnpm -install || pnpm i
+- pnpm install || pnpm i
 
 Realizando esos pasos estaran ya en la carpeta del proyecto y para hacerlo correr en tu sitio web deberas realizar este comando
 
