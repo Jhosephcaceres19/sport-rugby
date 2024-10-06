@@ -37,6 +37,7 @@ export const Footer = () => {
           <li>
             <a rel="noopener noreferrer" href="#">
               Instagram
+              hola
             </a>
           </li>
           <li>
