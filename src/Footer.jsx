@@ -36,7 +36,7 @@ export const Footer = () => {
         <ul className="flex flex-wrap pl-3 space-x-4 sm:space-x-8">
           <li>
             <a rel="noopener noreferrer" href="#">
-              Instagram
+              Instagra
             </a>
           </li>
           <li>
