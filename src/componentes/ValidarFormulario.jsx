@@ -1,45 +1,52 @@
-import { useState } from "react";
 
-function ValidarFormulario(  ) {
+import { useFormik } from 'formik';
 
-    const [file, setFile] = useState(null);
-    const [error, setError] = useState('');
+// eslint-disable-next-line react/prop-types
+const ValidarArchivo = ({ onSubmit }) => {
     const extenciones_validas = ['.jpg', '.pdf', '.uml'];
 
-    const handleFileChange = (event) => {
-
-        const seleccion_archivo = event.target.files[0];
-
-        if (seleccion_archivo) {
-
-            const extencion_archivo = seleccion_archivo.name.split('.').pop();
-            const extencion_valida = extenciones_validas.includes(`.${extencion_archivo.toLowerCase()}`);
-
-            if (!extencion_valida) {
-                setError('El archivo debe ser una imagen con extensión: .jpg, .jpeg, .png o .gif');
-                setFile(null);
+    const formik = useFormik({
+        initialValues: {
+            file: null,
+        },
+        validate: values => {
+            const errors = {};
+            if (!values.file) {
+                errors.file = 'Se requiere un archivo.';
             } else {
-                setError('');
-                setFile(seleccion_archivo);
-            }
-        }
-    };
+                const extencion_archivo = values.file.name.split('.').pop();
+                const extencion_valida = extenciones_validas.includes(`.${extencion_archivo.toLowerCase()}`);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        
-        if (file) {
-            console.log('Archivo válido:', file);
-        }
+                if (!extencion_valida) {
+                    errors.file = 'El archivo debe ser una imagen o un archivo .pdf o .uml.';
+                }
+            }
+            return errors;
+        },
+        onSubmit: values => {
+            onSubmit(values.file); 
+        },
+    });
+
+    const handleFileChange = (event) => {
+        const selectedFile = event.currentTarget.files[0];
+        formik.setFieldValue('file', selectedFile);
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="file" onChange={handleFileChange} />
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <button type="submit" disabled={!file}>Enviar</button>
-        </form>
+        <div>
+            <input
+                type="file"
+                onChange={handleFileChange}
+            />
+            {formik.errors.file ? (
+                <p style={{ color: 'red' }}>{formik.errors.file}</p>
+            ) : null}
+            <button type="submit" onClick={formik.handleSubmit} disabled={!formik.values.file}>
+                Enviar
+            </button>
+        </div>
     );
-}
+};
 
-export default ValidarFormulario
+export default ValidarArchivo;
