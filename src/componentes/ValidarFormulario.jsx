@@ -12,6 +12,7 @@ const ValidarArchivo = ({ onSubmit }) => {
         validate: values => {
             const errors = {};
             if (!values.file) {
+                
                 errors.file = 'Se requiere un archivo.';
             } else {
                 const extencion_archivo = values.file.name.split('.').pop();
